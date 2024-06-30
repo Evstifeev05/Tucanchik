@@ -1,0 +1,19 @@
+{
+    "players": [
+        {
+            "name": "1",
+            "hand": "acai banana acai avocado fig rambutan coconut orange fig lime lychee coconut lychee banana rambutan orange"
+        },
+        {
+            "name": "2",
+            "hand": "orange carambola carambola papaya carambola pineapple acai carambola avocado pomegranate rambutan avocado papaya carambola banana"
+        }
+    ],
+    "current_player": 0,
+    "rows": [
+        "papaya pomegranate pomegranate coconut coconut pineapple banana avocado avocado pineapple",
+        "orange",
+        "pomegranate rambutan acai lime fig pomegranate banana papaya pomegranate coconut rambutan acai coconut fig acai"
+    ],
+    "deck": ""
+}
