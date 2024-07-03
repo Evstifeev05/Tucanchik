@@ -11,6 +11,9 @@ class Deck:
                     cards.append(Card(key))
         self.cards = cards
 
+    def __str__(self):
+        return ', '.join(map(str, self.cards))
+
     def draw_card(self):
         if self.cards:
             return self.cards.pop()
@@ -24,3 +27,8 @@ class Deck:
 
     def save(self):
         return ' '.join(map(str, self.cards))
+
+    @classmethod
+    def load(cls, text):
+        cards = [Card.load(card) for card in text.split()]
+        return Deck(cards)
