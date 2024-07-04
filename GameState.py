@@ -1,6 +1,7 @@
 import json
 
 from Deck import Deck
+from Player import Player
 from Row import Row
 
 
@@ -25,8 +26,6 @@ class GameState:
 
     def take_row(self, player, row):
         self.players[player].hand.add_cards(self.rows[row].take_cards())
-        self.current_player = (self.current_player + 1) % len(self.players)
-        self.add_cards()
 
     def put_rows(self, deck):
         self.rows = [Row([deck.draw_card()]),
@@ -39,3 +38,14 @@ class GameState:
                        'current_player': self.current_player,
                        'rows': [row.save() for row in self.rows],
                        'deck': self.deck.save()}, f, indent=4)
+
+    @classmethod
+    def load(cls, file: str):
+        with open(file, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        players = [Player.load(p) for p in data['players']]
+        current_player = data['current_player']
+        rows = [Row.load(row) for row in data['rows']]
+        deck = Deck.load(data['deck'])
+
+        return GameState(players, current_player, deck, rows)
