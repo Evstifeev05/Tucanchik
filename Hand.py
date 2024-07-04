@@ -14,13 +14,21 @@ class Hand:
         for card in cards:
             self.cards.append(card)
 
-    def score(self):
+    def score(self, hands=None):
         summ = 0
-        set_cards = set(self.cards)
-        for card in set_cards:
-            count_cards = self.cards.count(card)
-            summ += Card.score(card, count_cards)
+        cards = list(map(str, self.cards))
+        for c in set(cards):
+            leader = False
+            count_cards = cards.count(c)
+            if c in Card.CARD_SPEC and hands is not None:
+                leader = (max([list(map(str, hand.cards)).count(c) for hand in hands]) == count_cards)
+            summ += Card.score(Card(c), count_cards, leader)
         return summ
 
     def save(self):
         return ' '.join(map(str, self.cards))
+
+    @classmethod
+    def load(cls, text):
+        cards = [Card.load(card) for card in text.split()]
+        return Hand(cards)
